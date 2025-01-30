@@ -1,0 +1,21 @@
+<% if user_signed_in? %>
+<div class="fixed top-0 left-0 w-full z-5 bg-soft-brown border-b backdrop-blur-lg bg-opacity-80 shadow-md" style="padding-left: 50px;">
+    <div class="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8 ">
+        <div class="relative flex h-16 justify-between">
+            <div class="flex flex-1 items-center justify-start">
+                <h1 class="text-red-900 mr-8 text-2xl lg:text-3xl xl:text-4xl font-bold"><%= controller_name.capitalize %></h1>
+            </div>
+            <div class="flex-shrink-0 flex px-2 py-3 items-center space-x-8">
+                <% if @current_user %>
+                    <a class="text-gray-700 hover:text-indigo-700 text-sm font-medium" href="#"><%= @current_user.email %></a>
+                <% end %>
+                <a class="z-0 text-white bg-green-400 hover:bg-green-500 inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm">
+                    <button id="open-modal-btn" class="btn btn-primary" data-target="my-modal">Create Category</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= render 'categories/new' %>  
+<%end%>

@@ -1,0 +1,13 @@
+<h1>Tasks</h1>
+
+<% if @tasks.any? %>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li><%= link_to task.title, category_task_path(@category, task) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No tasks available.</p>
+<% end %>
+
+<%= button_to "New Task", new_category_task_path(@category) %>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Planner</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="max-w-none bg-soft-beige">
+   
+  <div id="toast-container" class="fixed top-4 right-4 z-50">
+    <% flash.each do |type, msg| %>
+      <div class="toast shadow-lg rounded-lg p-4 mb-4 flex items-center justify-between transition-all duration-300 opacity-100 <%= type == 'notice' ? 'bg-green-500' : 'bg-red-500' %>">
+        <div class="text-white font-medium">
+          <%= msg %>
+        </div>
+        <button class="text-white hover:text-gray-200 focus:outline-none ml-3" onclick="closeToast(this.parentElement)">
+          &times;
+        </button>
+      </div>
+    <% end %>
+  </div>
+
+   <div id="main-content">
+    <%= yield %>
+    </div>
+  </div>
+
+   <% unless current_page?(new_user_session_path) || current_page?(new_user_registration_path)%>
+    <%= render 'layouts/sidebar' %>
+    <%= render 'layouts/banner' %>
+  <% end %>
+
+  </body>
+</html>

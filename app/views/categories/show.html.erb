@@ -1,0 +1,74 @@
+<div class="flex items-center justify-center h-screen flex-col rounded-md shadow-md">
+    <table class="w-2/4 rounded-md text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-md">
+        <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-soft-brown dark:text-black dark:bg-soft-brown rounded-md shadow-md">
+            <div class="flex flex-col">
+    <div class="flex justify-between items-center">
+    <div>
+        <h1 class="mb-4"><%= @category.name %></h1>
+        <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-700"><%= @category.description %></p>
+    </div>
+    <div class="flex gap-5">
+        <%= link_to "Edit Category", edit_category_path(@category), class: "px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 text-sm" %>
+        <%= link_to "Add Task", new_category_task_path(@category), class: "px-4 py-2 rounded-md bg-green-400 text-white hover:bg-green-500 text-sm" %>
+    </div>
+</div>
+        </caption>
+        <thead class="text-xs text-gray-700 uppercase bg-red-900 dark:bg-red-900 dark:text-white">
+            <tr>
+                <th scope="col" class="p-4">
+                    <div class="flex items-center">
+                        <input id="checkbox-all-search" type="checkbox" class="ml-5 w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-white dark:border-gray-600">
+                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Task
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Description
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Created At
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Due Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+  <% @category.tasks.each do |task| %>
+    <tr id="task-row-<%= task.id %>" class="rounded-md bg-soft-brown dark:white dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-200 <%= 'completed' if task.completed %>">
+      <td class="w-4 p-4 rounded-b-md">
+        <div class="flex items-center">
+          <%= check_box_tag "completed_tasks[]", task.id, task.completed, class: "pointer-events-none task-checkbox appearance-none h-4 w-4 border border-gray-300 rounded checked:bg-blue-500 checked:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600 dark:checked:bg-blue-500 dark:checked:border-transparent dark:focus:ring-offset-gray-800", data: { task_id: task.id } %>
+          <label for="checkbox-table-<%= task.id %>" class="sr-only">checkbox</label>
+        </div>
+      </td>
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black rounded-md">
+        <%= link_to task.title, category_task_path(@category, task), class: "font-medium text-white-600 dark:text-white-500 hover:underline" %>
+    </td>
+      </th>
+      <td class="px-6 py-4">
+        <%= task.description %>
+      </td>
+      <td class="px-6 py-4">
+        <%= task.created_at.strftime('%B %d, %Y') %>
+      </td>
+      <td class="px-6 py-4">
+        <%= task.due_date.strftime('%B %d, %Y') %>
+      </td>
+      <td class="px-6 py-4 rounded-b-md">
+  <div class="flex gap-5">
+    <%= link_to "Edit", edit_category_task_path(@category, task), class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
+    <%= button_to "Delete", category_task_path(@category, task), method: :delete, data: { confirm: 'Are you sure?' }, class: "font-medium text-red-600 dark:text-red-500 hover:underline ml-2" %>
+  </div>
+</td>
+    </tr>
+  <% end %>
+</tbody>
+    </table>
+</div>
+</div>

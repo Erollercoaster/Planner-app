@@ -1,0 +1,38 @@
+<div class="flex justify-center items-center h-screen">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-24">
+    <div class="bg-soft-brown p-4 rounded-md shadow-md">
+      <h2 class="text-lg font-semibold mb-2 text-red-900">Total Tasks</h2>
+      <p><%= @incomplete_tasks_count %></p>
+    </div>
+    
+    <div class="bg-soft-brown p-4 rounded-md shadow-md">
+      <h2 class="text-lg font-semibold mb-2 text-red-900">Most Urgent Task</h2>
+      <p><%= @most_urgent_task.title if not @most_urgent_task.nil? %></p>
+      <p><%= @most_urgent_task.due_date.strftime('%B %d, %Y') if not @most_urgent_task.nil?%></p>
+    </div>
+    
+    <div class="col-span-1 md:col-span-2 bg-soft-brown p-4 rounded-md shadow-md">
+      <h2 class="text-lg font-semibold mb-4 text-red-900">All Tasks</h2>
+      <table class="w-full border-collapse">
+        <thead class="text-xs text-white uppercase bg-yellow-200 dark:bg-red-900 dark:text-white">
+          <tr>
+            <th scope="col" class="px-6 py-3">Category</th> 
+            <th scope="col" class="px-6 py-3">Task</th>
+            <th scope="col" class="px-6 py-3">Description</th>
+            <th scope="col" class="px-6 py-3">Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tasks.each do |task| %>
+            <tr "bg-soft-brown border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="px-6 py-4 font-semibold"><%= task.category.name if task.category.present? %></td>
+              <td class="px-6 py-4"><%= task.title %></td>
+              <td class="px-6 py-4"><%= task.description %></td> 
+              <td class="px-6 py-4"><%= task.due_date.strftime('%B %d, %Y') %></td>
+            </tr>
+          <% end %>
+     </tbody>
+      </table>
+    </div>
+  </div>
+</div>
